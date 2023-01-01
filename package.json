@@ -1,31 +1,31 @@
 {
-  "name": "ro-message",
-  "version": "1.0.0",
-  "description": "Messaging API for Roblox",
-  "main": "dist/index.js",
-  "scripts": {
-    "prepack": "rimraf dist && pnpm run build",
-    "build": "tsc"
-  },
-  "repository": "github:xhayper/ro-message",
-  "keywords": [
-    "roblox"
-  ],
-  "author": "xhayper",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/xhayper/ro-message/issues"
-  },
-  "homepage": "https://github.com/xhayper/ro-message#readme",
-  "dependencies": {
-    "@fastify/caching": "^8.2.0",
-    "@fastify/type-provider-typebox": "^2.4.0",
-    "@sinclair/typebox": "^0.25.16",
-    "fastify": "^4.10.2"
-  },
-  "devDependencies": {
-    "@types/node": "^18.11.18",
-    "rimraf": "^3.0.2"
-  },
-  "packageManager": "pnpm@7.21.0"
+    "name": "roblox-message-thing",
+    "version": "1.0.0",
+    "description": "Messaging API for Roblox",
+    "main": "dist/index.js",
+    "scripts": {
+        "prepack": "rimraf dist && pnpm run build",
+        "build": "tsc"
+    },
+    "repository": "github:xhayper/roblox-message-thing",
+    "keywords": [
+        "roblox"
+    ],
+    "author": "xhayper",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/xhayper/roblox-message-thing/issues"
+    },
+    "homepage": "https://github.com/xhayper/roblox-message-thing#readme",
+    "dependencies": {
+        "@fastify/caching": "^8.2.0",
+        "@fastify/type-provider-typebox": "^2.4.0",
+        "@sinclair/typebox": "^0.25.16",
+        "fastify": "^4.10.2"
+    },
+    "devDependencies": {
+        "@types/node": "^18.11.18",
+        "rimraf": "^3.0.2"
+    },
+    "packageManager": "pnpm@7.21.0"
 }
