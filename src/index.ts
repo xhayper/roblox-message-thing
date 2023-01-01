@@ -73,9 +73,12 @@ type MessageClientEvents = {
 export class MessageServer extends (EventEmitter as new () => TypedEmitter<MessageClientEvents>) {
     readonly connectedClient: Map<string, MessageClient> = new Map();
     readonly app = fastify().withTypeProvider<TypeBoxTypeProvider>();
+    timeoutDuration: number;
 
-    constructor(opts?: FastifyServerOptions<Server, FastifyBaseLogger>) {
+    constructor(opts?: FastifyServerOptions<Server, FastifyBaseLogger> & { timeoutDuration?: number }) {
         super();
+
+        this.timeoutDuration = opts?.timeoutDuration ?? 1000 * 5;
 
         this.app = fastify(opts).withTypeProvider<TypeBoxTypeProvider>();
 
@@ -148,7 +151,7 @@ export class MessageServer extends (EventEmitter as new () => TypedEmitter<Messa
                 client.connectionTimeout = setTimeout(() => {
                     this.connectedClient.delete(jobId.toString());
                     this.emit("disconnect", client);
-                }, 1000 * 5);
+                }, this.timeoutDuration);
 
                 this.connectedClient.set(jobId.toString(), client);
 
@@ -175,7 +178,7 @@ export class MessageServer extends (EventEmitter as new () => TypedEmitter<Messa
                 client.connectionTimeout = setTimeout(() => {
                     this.connectedClient.delete(jobid!.toString());
                     this.emit("disconnect", client);
-                }, 1000 * 5);
+                }, this.timeoutDuration);
 
                 return reply.status(200).send("OK");
             }
