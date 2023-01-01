@@ -1,23 +1,23 @@
 import { MessageServer } from ".";
 
-const client = new MessageServer();
+const server = new MessageServer();
 
 setInterval(function () {
-    client.boardcast("Hello from NodeJS!");
+    server.boardcast("Hello from NodeJS!");
 }, 1000);
 
-client.on("message", (_, message) => {
+server.on("message", (_, message) => {
     console.log(message.message);
 });
 
-client.on("connect", (client) => {
-    client.send("Hello! Client! Welcome!");
+server.on("connect", (client) => {
+    client.send(`Hello! JobId: ${client.jobId}! Welcome!`);
 });
 
-client.on("disconnect", (client) => {
-    console.log(`Aww.. JobID: ${client.jobId} have disconnected!`);
+server.on("disconnect", (client) => {
+    console.log(`Aww.. JobId: ${client.jobId} have disconnected!`);
 });
 
-client.listen({
+server.listen({
     port: 3000
 });
