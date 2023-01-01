@@ -17,7 +17,8 @@ Client.__index = Client
 
 export type ClientOptions = {
 	Host: string?,
-	Port: number?
+	Port: number?,
+	PollingRate: number?
 }
 
 function Client.new(opts: ClientOptions?)
@@ -25,11 +26,14 @@ function Client.new(opts: ClientOptions?)
 	local opt = opts :: ClientOptions
 	opt.Host = opt.Host or "127.0.0.1"
 	opt.Port = opt.Port or 3000
+	opt.PollingRate = opt.PollingRate or 1
 
 	local self = setmetatable({}, Client)
 
 	self.Host = opt.Host
 	self.Port = opt.Port
+	self.PollingRate = opt.PollingRate
+	
 	self.Connected = false
 
 	self.__messageBind = Instance.new("BindableEvent")
@@ -112,7 +116,7 @@ function Client:Connect()
 				return self:__request("ping")
 			end)
 			if not success or not respond.Success then break end
-			task.wait(1)
+			task.wait(self.PollingRate)
 		until false
 		
 		if not self.Connected then return end
@@ -158,7 +162,7 @@ function Client:Connect()
 			
 			if not success or not result.Success then break end
 
-			task.wait(1)
+			task.wait(self.PollingRate)
 		until false
 		
 		if not self.Connected then return end
@@ -197,7 +201,7 @@ function Client:Connect()
 				end
 			end
 
-			task.wait(1)
+			task.wait(self.PollingRate)
 		until false
 		
 		if not self.Connected then return end

@@ -259,8 +259,18 @@ export class MessageServer extends (EventEmitter as new () => TypedEmitter<Messa
         );
     }
 
-    boardcast(message: string) {
+    boardcast(
+        message: string,
+        options: {
+            excludePublic?: boolean;
+            excludeReserved?: boolean;
+            excludePrivate?: boolean;
+        } = {}
+    ) {
         for (const client of this.connectedClient.values()) {
+            if (options.excludePublic && client.serverType === 0) continue;
+            if (options.excludeReserved && client.serverType === 1) continue;
+            if (options.excludePrivate && client.serverType === 2) continue;
             client.send(message);
         }
     }
